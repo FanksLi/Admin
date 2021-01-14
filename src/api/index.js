@@ -31,6 +31,8 @@ export const reqUpdateStatus = (productId , status) =>
 // 根据id查询分类
 export const reqCategoryInfo = (categoryId) => ajax('/manage/category/info', {categoryId})
 // 添加分类和更新分类
-export const reqUptaAdd = (data) => ajax('/manage/product/update', data, 'POST')
+export const reqUptaAdd = (data, type) => {
+    return ajax('/manage/product/' + type, data, 'POST')
+}
 // 删除图片
 export const reqDeletePic = (name) => ajax('/manage/img/delete', {name}, 'POST')

@@ -82,7 +82,6 @@ export default class ProductUpdataAdd extends Component {
 	}
 	// 表单验证成功时方法
 	onFinish = async (value) => {
-		const {_id} = this.props.location.state
 		const {name, desc, price} = value
 		let categoryId, pCategoryId
 		// 获取分类id，黑父类id
@@ -95,12 +94,20 @@ export default class ProductUpdataAdd extends Component {
 		}
 		const imgs = this.pw.current.getStateList()
 		const detail = this.editor.current.getEditor()
-		const data = { _id, categoryId, pCategoryId, name, desc, price: price+'', imgs, detail }
-		const res = await reqUptaAdd(data)
+		let data,res
+		// 更新请求
+		if (this.props.location.state._id) {
+			const {_id} = this.props.location.state
+			data = { _id, categoryId, pCategoryId, name, desc, price: price+'', imgs, detail }
+			res = await reqUptaAdd(data, 'update')
+		} else { // 发送添加请求
+			data = {categoryId, pCategoryId, name, desc, price: price+'', imgs, detail }
+			 res = await reqUptaAdd(data, 'add')
+		}
 		console.log(res)
 		if (res.status === 0) {
-			this.props.history.replace('/product')
 			message.success(this.product ? '更新成功' : '添加成功')
+			this.props.history.replace('/product')
 		} else {
 			message.success(this.product ? '更新失败' : '添加失败')
 		}
