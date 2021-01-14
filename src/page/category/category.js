@@ -6,6 +6,18 @@ import { reqCategory, reqUpdate, reqAdd } from '../../api'
 import ButtonHref from '../../component/button-href/index.js'
 const Item = Form.Item
 const { Option } = Select
+
+const throttle = function (func, wait) {
+		let timeId
+		return function() {
+			if (!timeId) {
+				timeId = setTimeout(() => {
+					timeId = null
+					func.apply(this)
+				}, wait)
+			}
+		}
+	}
 export default class Category extends Component {
 	formRef = React.createRef()
 	state = {
@@ -131,6 +143,7 @@ export default class Category extends Component {
 		}
 	}
 	componentDidMount () {
+		throttle(this.AddFinish, 1000)
 		this.getCategory()
 	}
 	render () {

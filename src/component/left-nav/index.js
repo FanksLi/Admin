@@ -19,7 +19,10 @@ class LeftNav extends Component {
 				  </Menu.Item>
 				)
 			} else {
-				const path = this.props.location.pathname
+				let path = this.props.location.pathname
+				if (path.indexOf('/product') !== -1) {
+					path = '/product'
+				}
 				const child = item.children.find(child => path === child.key)
 				if (child) {
 					this.path = item.key
@@ -37,7 +40,10 @@ class LeftNav extends Component {
 	}
 	render () {
 		// debugger
-		const url = this.props.location.pathname
+		let url = this.props.location.pathname
+		if (url.indexOf('/product') !== -1) {
+			url = '/product'
+		}
 		return (
 			<div className='left-nav'>
 				<div className='left-nav-title'>

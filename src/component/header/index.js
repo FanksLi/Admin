@@ -20,10 +20,13 @@ class Header extends Component {
 	// 设置title
 	getMenuList = (list) => {
 		return list.forEach(item => {
-			const path = this.props.location.pathname
+			let path = this.props.location.pathname
 			if (item.children) {
 				this.getMenuList(item.children)
-			} 
+			}
+			if (path.indexOf('/product') !== -1) {
+				path = '/product'
+			}
 			if (path === item.key) {
 				this.title = item.title
 			}

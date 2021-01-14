@@ -5,7 +5,7 @@ import { Layout } from 'antd';
 import { getUser } from '../../units/storage.js'
 import Header from '../../component/header'
 import LeftNav from '../../component/left-nav'
-import Home from '../home/home.js'
+import Home from '../Home/Home.js'
 import Category from '../category/category.js'
 import Product from '../product/product.js'
 import Role from '../role/role.js'
@@ -25,7 +25,7 @@ export default class Main extends Component {
 			return <Redirect to='/login' />
 		}
 		return (
-			<Layout style={{height: '100%'}}>,
+			<Layout style={{minHeight: '100%'}}>,
 				<Sider className='home-sider'>
 					<LeftNav />
 				</Sider>
