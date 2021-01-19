@@ -13,6 +13,8 @@ import User from '../user/user.js'
 import Bar from '../charts/bar.js'
 import Pie from '../charts/pie.js'
 import Line from '../charts/line.js'
+import Orders from '../orders/orders.js'
+
 import './Main.less'
 
 
@@ -41,6 +43,7 @@ export default class Main extends Component {
 							<Route path='/charts/bar' component={ Bar }/>
 							<Route path='/charts/pie' component={ Pie }/>
 							<Route path='/charts/line' component={ Line }/>
+							<Route path='/order' component={ Orders }/>
 							<Redirect to='/home' />
 						</Switch>
 					</Content>

@@ -45,6 +45,11 @@ const menuList = [
 			{ title: '饼图', key: '/charts/pie', icon: <PieChartOutlined /> }, 
 		] ,
 	},
+	{
+		title: '订单管理',
+		key: '/order',
+		icon: <TeamOutlined />,
+	},
 ]
 
 export default menuList

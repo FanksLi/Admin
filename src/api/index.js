@@ -36,3 +36,15 @@ export const reqUptaAdd = (data, type) => {
 }
 // 删除图片
 export const reqDeletePic = (name) => ajax('/manage/img/delete', {name}, 'POST')
+// 获取角色列表
+export const reqUserList = () => ajax('/manage/role/list')
+// 添加角色
+export const reqRoleAdd = (data) => ajax('/manage/role/add', data, 'POST')
+// 更新权限列表
+export const reqUpdataRole = (data) => ajax('/manage/role/update', data, 'POST')
+// 获取用户列表
+export const reqRoleList = () => ajax('/manage/user/list')
+// 添加or更新用户
+export const reqAddorUpdataUser = (data) => ajax('/manage/user/' + (data._id ? 'update' : 'add'), data, 'POST')
+// 删除用户
+export const reqDeleteUser = (userId) => ajax('/manage/user/delete', {userId}, 'POST')
