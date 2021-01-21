@@ -3,23 +3,47 @@ import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { Menu } from 'antd';
 
-import logo from  '../../assets/images/logo.png'
+import logo from  '../../assets/images/logo.jpg'
+import { getUser } from '../../units/storage'
 import menuList from '../../config/menuConfig.js'
 import './index.less'
 
 const { SubMenu } = Menu;
 class LeftNav extends Component {
+	constructor(props) {
+		super(props);
+		const user = getUser()
+		this.state = {
+			user
+		}
+		this.getMenuList(menuList)
+	}
 	// 渲染侧边导航函数方法
 	getMenuList = (list) => {
+		let path = this.props.location.pathname
+		const { menus } = this.state.user.role
 		return list.map(item => {
+			const str = menus.find(menu => menu === item.key)
 			if (!item.children) {
-				return (
-				  <Menu.Item key={item.key} icon={item.icon}>
-				   <Link to={item.key}>{item.title}</Link>
-				  </Menu.Item>
-				)
+				if (this.state.user.username === 'admin' || item.key === '/home') {
+					return (
+						<Menu.Item key={item.key} icon={item.icon}>
+							<Link to={item.key}>{item.title}</Link>
+						</Menu.Item>
+					)
+				} else if (str) {
+					return (
+						<Menu.Item key={item.key} icon={item.icon}>
+							<Link to={item.key}>{item.title}</Link>
+						</Menu.Item>
+					)
+				} else {
+					return null
+				}
 			} else {
-				let path = this.props.location.pathname
+				const str = menus.find(menu => {
+					return menu.indexOf(item.key) !== -1
+				})
 				if (path.indexOf('/product') !== -1) {
 					path = '/product'
 				}
@@ -27,16 +51,17 @@ class LeftNav extends Component {
 				if (child) {
 					this.path = item.key
 				}
-				return (
-					<SubMenu key={item.key} icon={item.icon} title={item.title}>
-						{this.getMenuList(item.children)}
-					</SubMenu>
-				)
+				if (str || this.state.user.username === 'admin') {
+					return (
+						<SubMenu key={item.key} icon={item.icon} title={item.title}>
+							{this.getMenuList(item.children)}
+						</SubMenu>
+					)
+				} else {
+					return null
+				}
 			}
 		})
-	}
-	UNSAFE_componentWillMount () {
-		this.getMenuList(menuList)
 	}
 	render () {
 		// debugger
@@ -47,7 +72,7 @@ class LeftNav extends Component {
 		return (
 			<div className='left-nav'>
 				<div className='left-nav-title'>
-					<img src={logo} alt='logo' />
+					<img src={logo} alt='logo' style={{borderRadius: '50%'}} />
 					<h1>电商后台管理</h1>
 				</div>
 				<Menu mode="inline" theme="dark" defaultOpenKeys={[this.path]} selectedKeys={[url]}>

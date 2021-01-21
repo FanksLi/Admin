@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, Table, message, Modal, Form, Input, Select } from 'antd'
 
 import { reqCategory, reqUpdate, reqAdd } from '../../api'
-
+import { PAGE_SIZE } from '../../units/constant'
 import ButtonHref from '../../component/button-href/index.js'
 const Item = Form.Item
 const { Option } = Select
@@ -172,7 +172,7 @@ export default class Category extends Component {
 			      <Table
 					dataSource={parentId === 0 ? dataSource : subdataSource}
 					columns={columns} key='1'
-					pagination={{defaultPageSize: 5, showQuickJumper: true}}
+					pagination={{defaultPageSize: 5, showQuickJumper: true, pageSize: PAGE_SIZE}}
 				  />
 				  <Modal title="修改分类" visible={isShowCategory} onOk={this.categoryHandleOk} onCancel={this.categoryHandleCancel}>
 						 <Form ref={this.formRef} onFinish={this.categoryFinish}>

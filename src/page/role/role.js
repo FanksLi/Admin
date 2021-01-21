@@ -3,7 +3,7 @@ import {reqRoleAdd, reqUserList, reqUpdataRole} from "../../api";
 import {Button, Card, Form, Input, message, Modal, Table, Tree} from "antd";
 import {PAGE_SIZE} from "../../units/constant";
 import menuConfig from "../../config/menuConfig";
-import { getUser } from '../../units/storage'
+import { getUser, removeUser } from '../../units/storage'
 import formatDate from '../../units/formatDate'
 
 const Item = Form.Item
@@ -132,6 +132,11 @@ export default class Role extends Component {
 		const auth_name = getUser().username
 		const res = await reqUpdataRole({_id, menus, auth_time, auth_name})
 		if (res.status === 0) {
+			console.log(role._id, getUser().role_id)
+			if (role._id === getUser().role_id) {
+				removeUser()
+				message.info('修改权限，请重新登录')
+			}
 			// 查找更新权限对象的位置
 			const index = userList.findIndex(item => {
 				return item.name === res.data.name

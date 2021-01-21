@@ -6,7 +6,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { reqLogin } from '../../api'
 import { saveUser, getUser } from '../../units/storage.js'
 
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo.jpg'
 import './css/login.less'
 
 export default class Login extends Component {
@@ -17,7 +17,7 @@ export default class Login extends Component {
 			return Promise.reject('密码不能为空！')
 		} else if (values.length < 4 || values.length > 12) {
 			return Promise.reject('密码长度为4-12位！')
-		} else if (!/^[a-zA-Z_.]+$/.test(values)) {
+		} else if (!/^[0-9a-zA-Z_.]+$/.test(values)) {
 			return Promise.reject('用户名为英文、数字或下划线组成!')
 		} else {
 			return Promise.resolve()
@@ -44,7 +44,7 @@ export default class Login extends Component {
 		return (
 			<div className='login'>
 				<header className='login-header'>
-					<img alt='logo' src={logo} />
+					<img alt='logo' src={logo} style={{borderRadius: '50%'}} />
 					<h1>React项目:后台管理系统</h1>
 				</header>
 				<section className='login-content'>
@@ -67,7 +67,7 @@ export default class Login extends Component {
 							    message: '用户名使用为4-12位!',
 							  },
 							  {
-								pattern: /^[a-zA-Z_.]+$/,
+								pattern: /^[0-9a-zA-Z_.]+$/,
 							    message: '用户名为英文、数字或下划线组成!',
 							  },
 					        ]}

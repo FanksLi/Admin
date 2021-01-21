@@ -5,6 +5,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { reqRoleList, reqAddorUpdataUser, reqDeleteUser } from '../../api'
 import formatDate from "../../units/formatDate"
 import ButtonHref from "../../component/button-href"
+import {PAGE_SIZE} from "../../units/constant";
 
 const Item = Form.Item
 const Option = Select.Option
@@ -167,7 +168,11 @@ export default class User extends Component {
 		)
 		return (
 			<Card title={title}>
-				<Table dataSource={roleList} columns={this.columns} />
+				<Table
+					dataSource={roleList}
+					columns={this.columns}
+					pagination={{pageSize: PAGE_SIZE}}
+				/>
 				<Modal
 					title="添加用户"
 					visible={isUserVisible}
